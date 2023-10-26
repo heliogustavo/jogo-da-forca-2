@@ -6,7 +6,7 @@ export default function Letras() {
 
     return (
         <Teclado>
-            <Botao>    </Botao>
+            <Botao>  b  </Botao>
         </Teclado>
     )
 
