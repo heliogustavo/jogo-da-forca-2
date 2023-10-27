@@ -24,7 +24,7 @@ export default function App() {
     <Container>
 
       <Jogo />
-      <Letras />
+      <Letras alfabeto={alfabeto} />
 
     </Container>
   )

@@ -2,11 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 
-export default function Letras() {
-
+export default function Letras(props) {
+    const {alfabeto} = props
+            console.log(alfabeto)
     return (
         <Teclado>
-            <Botao>  b  </Botao>
+            {alfabeto.map((cadaLetra, i) =>(
+                <Botao key={i}> {cadaLetra} </Botao>
+                
+            ))}
+
         </Teclado>
     )
 
