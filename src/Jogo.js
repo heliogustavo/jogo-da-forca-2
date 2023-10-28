@@ -2,10 +2,11 @@ import styled from "styled-components";
 import forca0 from "./assets/forca0.png" 
 
 export default function Jogo(props) {
+    const {escolherPalavra} = props
     return (
         <Container>
             <Forca data-test="game-image" src={forca0} alt="imagem" />
-            <Escolher data-test="choose-word">
+            <Escolher data-test="choose-word" onClick={escolherPalavra}>
                 Escolher Palavra
             </Escolher>
             <Palavra data-test="word">

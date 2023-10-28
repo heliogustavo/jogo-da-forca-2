@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 export default function Letras(props) {
     const {alfabeto} = props
-            console.log(alfabeto)
     return (
         <Teclado>
             {alfabeto.map((cadaLetra, i) =>(

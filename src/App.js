@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
 import Jogo from "./Jogo";
-import Palavras from "./Palavras"
+import palavras from "./Palavras"
 import forca0 from "./assets/forca0.png"
 import forca1 from "./assets/forca1.png"
 import forca2 from "./assets/forca2.png"
@@ -11,19 +12,47 @@ import forca5 from "./assets/forca5.png"
 import forca6 from "./assets/forca6.png"
 import Letras from "./Letras";
 
+const imgForcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
+const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 
 export default function App() {
 
-  const imgForcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
-  const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  const [palavraSelecionada, setPalavraSelecionada] = useState([])
+  const [palavraQuebrada, setPalavraQuebrada] = useState([])
+  const [palavraDoJogo, setPalavraDoJogo] = useState([])
+  const [letrasUsadas, setLetrasUsadas] = useState(alfabeto)
+  const [erros, setErros] = useState(0)
+  const [color, setColor] = useState("black")
+  const [desabControl, setDesabControl] = useState(true)
+  const [desabImput, setDesabImput] = useState(true)
 
+  function escolherPalavra() {
+    const indiceAleatorio = Math.floor(Math.random() * palavras.length)
+    const palavraAleatoria = palavras[indiceAleatorio]
+    setPalavraSelecionada(palavraAleatoria)
+    const arrayPalavraSelecionada = palavraAleatoria.split("")
+    setPalavraQuebrada(arrayPalavraSelecionada)
+    let underline = []
+    arrayPalavraSelecionada.forEach((letra) => underline.push(" _"))
+
+    setPalavraDoJogo(underline)
+    console.log(indiceAleatorio)
+    console.log(arrayPalavraSelecionada)
+    console.log(palavraAleatoria)
+    console.log(palavraQuebrada)
+    console.log(arrayPalavraSelecionada)
+
+  }
 
 
   return (
     <Container>
 
-      <Jogo />
+      <Jogo 
+        escolherPalavra={escolherPalavra}
+      
+      />
       <Letras alfabeto={alfabeto} />
 
     </Container>
