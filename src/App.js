@@ -12,7 +12,7 @@ import forca5 from "./assets/forca5.png"
 import forca6 from "./assets/forca6.png"
 import Letras from "./Letras";
 
-const imgForcas = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
+const imgForca = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
 const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 
@@ -26,6 +26,15 @@ export default function App() {
   const [color, setColor] = useState("black")
   const [desabControl, setDesabControl] = useState(true)
   const [desabImput, setDesabImput] = useState(true)
+
+  function iniciarJogo() {
+    escolherPalavra()
+    setLetrasUsadas([])
+    setColor("black")
+    setDesabImput(false)
+    setErros(0)
+    setDesabControl(false)
+}
 
   function escolherPalavra() {
     const indiceAleatorio = Math.floor(Math.random() * palavras.length)
@@ -44,19 +53,63 @@ export default function App() {
     console.log(arrayPalavraSelecionada)
 
   }
+  function letraClicada(letraDoBotao) {
+    setLetrasUsadas([...letrasUsadas, letraDoBotao])
+    if (palavraSelecionada.includes(letraDoBotao)) {
+        letraCerta(letraDoBotao)
+    }
+    else {
+        letraErrada(letraDoBotao)
+    }
+}
+function letraCerta(letraDoBotao) {
+    const novaPalavraDoJogo = [...palavraDoJogo]
+    palavraQuebrada.forEach((letra, q) => {
+        if (palavraSelecionada[q] === letraDoBotao) {
+            novaPalavraDoJogo[q] = letra
+        }
+    })
+    setPalavraDoJogo(novaPalavraDoJogo)
+    if (!novaPalavraDoJogo.includes(" _")) {
+        setColor("green")
+        finalizarJogo()
+    }
+}
+function letraErrada(letraDoBotao) {
+    const novoErro = erros + 1
+    setErros(novoErro)
+    if (erros + 1 === 6) {
+        setColor("red")
+        finalizarJogo()
+    }
+}
 
-
-  return (
+function finalizarJogo() {
+    setLetrasUsadas(alfabeto)
+    setDesabImput(true)
+    setDesabControl(true)
+    setPalavraDoJogo(palavraQuebrada)
+}
+return (
     <Container>
 
-      <Jogo 
-        escolherPalavra={escolherPalavra}
-      
-      />
-      <Letras alfabeto={alfabeto} />
+        <Jogo
+            imgForca={imgForca}
+            erros={erros}
+            iniciarJogo={iniciarJogo}
+            palavraDoJogo={palavraDoJogo}
+            palavraSelecionada={palavraSelecionada}
+            color={color}
 
+        />
+        <Letras
+            alfabeto={alfabeto}
+            letrasUsadas={letrasUsadas}
+            letraClicada={letraClicada}
+        />
+     
     </Container>
-  )
+)
 }
 const Container = styled.div`
 width: 100vw;
@@ -67,5 +120,4 @@ align-items: center;
 justify-content: center;
 background-color: white;
 `
-
 

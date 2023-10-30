@@ -1,19 +1,16 @@
-import React from "react";
-import styled from "styled-components";
-
+import styled from "styled-components"
 
 export default function Letras(props) {
-    const {alfabeto} = props
+    const { alfabeto, letrasUsadas, letraClicada } = props
     return (
         <Teclado>
-            {alfabeto.map((cadaLetra, i) =>(
-                <Botao key={i}> {cadaLetra} </Botao>
-                
+            {alfabeto.map((letra) => (
+                <Botao data-test="letter" onClick={() => letraClicada(letra)} key={letra} disabled={letrasUsadas.includes(letra)}>
+                    {letra}
+                </Botao>
             ))}
-
         </Teclado>
     )
-
 }
 
 const Teclado = styled.div`
@@ -23,7 +20,7 @@ const Teclado = styled.div`
     margin-left: 50px;
     align-items: center;
 `
-const Botao = styled.button`
+const Botao=styled.button`
     width: 40px;
     height: 40px;
     background-color: #e1ecf4;
