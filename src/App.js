@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import Jogo from "./Jogo";
-import palavras from "./Palavras"
+import palavras from "./palavras"
 import forca0 from "./assets/forca0.png"
 import forca1 from "./assets/forca1.png"
 import forca2 from "./assets/forca2.png"
